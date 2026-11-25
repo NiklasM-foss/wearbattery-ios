@@ -1,0 +1,32 @@
+name: Build IPA
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: XcodeGen installieren
+        run: brew install xcodegen
+      - name: Projekt erzeugen
+        run: xcodegen generate
+      - name: Bauen ohne Signatur
+        run: |
+          xcodebuild -project WearBattery.xcodeproj -scheme WearBattery \
+            -configuration Release -sdk iphoneos \
+            -derivedDataPath build \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" \
+            build
+      - name: IPA packen
+        run: |
+          mkdir -p ipa/Payload
+          cp -R build/Build/Products/Release-iphoneos/WearBattery.app ipa/Payload/
+          cd ipa && zip -qry ../WearBattery.ipa Payload
+      - uses: actions/upload-artifact@v4
+        with:
+          name: WearBattery-ipa
+          path: WearBattery.ipa
