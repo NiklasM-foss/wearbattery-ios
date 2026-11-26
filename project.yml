@@ -17,12 +17,16 @@ targets:
       path: App/WearBattery.entitlements
       properties:
         com.apple.security.application-groups: [group.de.wearbattery]
+        com.apple.developer.healthkit: true
+        com.apple.developer.healthkit.access: []
     info:
       path: App/Info.plist
       properties:
         CFBundleDisplayName: Uhr-Akku
         UILaunchScreen: {}
-        NSBluetoothAlwaysUsageDescription: Die App liest den Akkustand deiner Uhr per Bluetooth.
+        NSBluetoothAlwaysUsageDescription: Die App liest den Akkustand und die Gesundheitsdaten deiner Uhr per Bluetooth.
+        NSHealthShareUsageDescription: Die App liest keine Health-Daten.
+        NSHealthUpdateUsageDescription: Die App schreibt Puls, Schritte, Strecke und Kalorien deiner Uhr nach Apple Health.
         UIBackgroundModes: [bluetooth-central]
     settings:
       base:

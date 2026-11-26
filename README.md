@@ -6,6 +6,14 @@ iPhone-App mit Widget, die den Akkustand einer Wear-OS-Uhr per Bluetooth liest
 Die Uhr stellt den Dienst per BLE bereit, siehe `BatteryGattServer.kt` im Projekt
 WearBridge (Wear-OS-Seite).
 
+## Gesundheitsdaten
+
+Die App holt Puls, Schritte, Strecke, Kalorien und Etagen von der Uhr ab und schreibt sie in
+Apple Health (`App/HealthSync.swift`). Die Uhr sammelt die Daten im Hintergrund und haelt sie in
+einem Zwischenspeicher, aus dem die App ab der letzten bekannten Nummer abholt und quittiert.
+Das Protokoll steht im Projekt der Watch-App unter `docs/health-protokoll.md`.
+Beim ersten Start auf **Health erlauben** tippen.
+
 ## Aufbau
 
 - `App/`: SwiftUI-App, `BleMonitor` verbindet sich dauerhaft mit der Uhr

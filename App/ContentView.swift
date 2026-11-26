@@ -2,6 +2,7 @@ import SwiftUI
 
 struct ContentView: View {
     @EnvironmentObject var ble: BleMonitor
+    @EnvironmentObject var health: HealthSync
 
     var body: some View {
         NavigationStack {
@@ -30,6 +31,25 @@ struct ContentView: View {
                             Button(f.name) { ble.choose(f) }
                         }
                     }
+                }
+                Section("Gesundheit") {
+                    HStack {
+                        Text("Verbindung")
+                        Spacer()
+                        Text(health.connected ? "verbunden" : "getrennt").foregroundStyle(.secondary)
+                    }
+                    HStack {
+                        Text("In Health gespeichert")
+                        Spacer()
+                        Text("\(health.savedTotal)").foregroundStyle(.secondary)
+                    }
+                    if let u = health.lastSync {
+                        Text("Letzter Abgleich: \(u.formatted(date: .abbreviated, time: .shortened)), \(health.lastBatch) Werte")
+                            .font(.footnote).foregroundStyle(.secondary)
+                    }
+                    Text(health.status).font(.footnote).foregroundStyle(.secondary)
+                    Button("Health erlauben") { health.requestHealthAccess() }
+                    Button("Jetzt abholen") { health.requestData() }
                 }
                 Section("Widget") {
                     Text("Halte auf dem Home-Bildschirm gedrueckt, tippe auf + und waehle Uhr-Akku.")

@@ -1,0 +1,23 @@
+gekoppelt: EV3
+gekoppelt: Logitech BT Adapter
+gekoppelt: iPhone von Niklas
+iPhone gefunden: iPhone von Niklas
+RFCOMM verbunden
+>> AT+BRSF=0
+<< +BRSF:3567
+<< OK
+>> AT+CIND=?
+<< +CIND: ("service",(0-1)),("call",(0-1)),("callsetup",(0-3)),("battchg",(0-5)),("signal",(0-5)),("roam",(0-1)),("callheld",(0-2))
+<< OK
+>> AT+CIND?
+<< +CIND: 0,0,0,4,0,0,0
+<< OK
+>> AT+CMER=3,0,0,1
+<< OK
+>> AT+XAPL=0505-0012-0100,2
+<< +XAPL=iPhone,7
+<< OK
+>> AT+IPHONEACCEV=1,1,5
+<< OK
+Akku gemeldet: Stufe 5 von 9
+<< +CIEV: 4,5
